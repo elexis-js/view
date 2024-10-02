@@ -1,0 +1,25 @@
+{
+  "name": "@elexis/view",
+  "description": "A tool for manage multiple content",
+  "version": "0.1.0",
+  "author": {
+    "name": "defaultkavy",
+    "email": "defaultkavy@gmail.com",
+    "url": "https://git.defaultkavy.com/defaultkavy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://git.defaultkavy.com/elexis/view.git"
+  },
+  "module": "index.ts",
+  "bugs": {
+    "url": "https://git.defaultkavy.com/elexis/view/issues"
+  },
+  "homepage": "https://git.defaultkavy.com/elexis/view",
+  "keywords": ["web", "front-end", "lib", "fluent", "framework"],
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "elexis": "../../elexis"
+  }
+}
