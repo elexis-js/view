@@ -1,15 +1,14 @@
-import { $Container, $ContainerOptions, $EventManager, $Node } from "elexis";
+import { $Container, $ContainerEventMap, $ContainerOptions, $EventManager, $Node } from "elexis";
 
 export interface $ViewOptions extends $ContainerOptions {}
-export class $View extends $Container {
-    protected viewCache = new Map<string, $Node>();
-    events = new $EventManager<$ViewEventMap>().register('beforeSwitch', 'afterSwitch', 'rendered')
+export class $View<Content extends $Node = $Node, EM extends $ViewEventMap<Content> = $ViewEventMap<Content>> extends $Container<HTMLElement, EM> {
+    protected viewCache = new Map<string, Content>();
     contentId: string | null = null;
     constructor(options?: $ViewOptions) {
         super('view', options);
     }
 
-    setView(id: string, $node: $Node) {
+    setView(id: string, $node: Content) {
         this.viewCache.set(id, $node);
         return this;
     }
@@ -30,8 +29,8 @@ export class $View extends $Container {
         if (nextContent === undefined) return this;
         const previousContent = this.currentContent;
         let preventDefault = false;
+        this.contentId = id;
         const rendered = () => {
-            this.contentId = id;
             this.events.fire('rendered', {$view: this, previousContent, nextContent})
         }
         const switched = () => {
@@ -47,7 +46,6 @@ export class $View extends $Container {
             rendered
         })
         if (!preventDefault) {
-            console.debug('not prevent default')
             this.content(nextContent);
             rendered();
             switched();
@@ -61,18 +59,16 @@ export class $View extends $Container {
     }
 }
 
-export interface $ViewEventMap {
-    'beforeSwitch': [$ViewBeforeSwitchEvent];
+export interface $ViewEventMap<Content extends $Node = $Node> extends $ContainerEventMap {
+    'beforeSwitch': [{ 
+        $view: $View;
+        targetId: string;
+        previousContent: Content | undefined;
+        nextContent: Content;
+        preventDefault: () => void; 
+        switched: () => void;
+        rendered: () => void;
+    }];
     'afterSwitch': [{$view: $View, previousId: string}];
-    'rendered': [{$view: $View, previousContent: $Node | undefined, nextContent: $Node}]
-}
-
-export interface $ViewBeforeSwitchEvent { 
-    $view: $View;
-    targetId: string;
-    previousContent: $Node | undefined;
-    nextContent: $Node;
-    preventDefault: () => void; 
-    switched: () => void;
-    rendered: () => void;
+    'rendered': [{$view: $View, previousContent: Content | undefined, nextContent: Content}]
 }
