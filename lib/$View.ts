@@ -2,18 +2,18 @@ import { $Container, $ContainerEventMap, $ContainerOptions, $EventManager, $Node
 
 export interface $ViewOptions extends $ContainerOptions {}
 export class $View<Content extends $Node = $Node, EM extends $ViewEventMap<Content> = $ViewEventMap<Content>> extends $Container<HTMLElement, EM> {
-    protected viewCache = new Map<string, Content>();
-    contentId: string | null = null;
+    protected viewCache = new Map<any, Content>();
+    contentId: any | null = null;
     constructor(options?: $ViewOptions) {
         super('view', options);
     }
 
-    setView(id: string, $node: Content) {
+    setView(id: any, $node: Content) {
         this.viewCache.set(id, $node);
         return this;
     }
 
-    deleteView(id: string) {
+    deleteView(id: any) {
         this.viewCache.delete(id);
         return this;
     }
@@ -23,7 +23,7 @@ export class $View<Content extends $Node = $Node, EM extends $ViewEventMap<Conte
         return this;
     }
 
-    switchView(id: string) {
+    switchView(id: any) {
         if (id === this.contentId) return this;
         const nextContent = this.viewCache.get(id);
         if (nextContent === undefined) return this;
