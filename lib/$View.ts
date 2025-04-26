@@ -1,4 +1,5 @@
-import { $Container, type $ContainerEventMap, type $ContainerOptions, $Node } from "elexis";
+import { type $ContainerOptions, $Container, type $ContainerEventMap } from "elexis/src/node/$Container";
+import type { $Node } from "elexis/src/node/$Node";
 
 export interface $ViewOptions extends $ContainerOptions {}
 export class $View<Content extends $Node = $Node, EM extends $ViewEventMap<Content> = $ViewEventMap<Content>> extends $Container<HTMLElement, EM> {
