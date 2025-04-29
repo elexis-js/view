@@ -5,7 +5,7 @@ export interface $ViewOptions extends $ContainerOptions {}
 export class $View<Content extends $Node = $Node, EM extends $ViewEventMap<Content> = $ViewEventMap<Content>> extends $Container<HTMLElement, EM> {
     protected viewCache = new Map<any, Content>();
     contentId: any | null = null;
-    constructor(options?: $ViewOptions) {
+    constructor(options?: Partial<$ViewOptions>) {
         super('view', options);
     }
 
