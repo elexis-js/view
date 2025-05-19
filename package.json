@@ -1,7 +1,7 @@
 {
   "name": "@elexis.js/view",
   "description": "A tool for manage multiple content",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "author": {
     "name": "defaultkavy",
     "email": "defaultkavy@gmail.com",
@@ -16,7 +16,13 @@
     "url": "https://github.com/elexis-js/view/issues"
   },
   "homepage": "https://github.com/elexis-js/view",
-  "keywords": ["web", "front-end", "lib", "fluent", "framework"],
+  "keywords": [
+    "web",
+    "front-end",
+    "lib",
+    "fluent",
+    "framework"
+  ],
   "license": "ISC",
   "type": "module",
   "peerDependencies": {
